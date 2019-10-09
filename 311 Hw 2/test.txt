@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+
+struct int_tuple {
+  int start;
+  int end;
+};
+
+
+int main(int argc, char * argv[]) {
+
+
+  const int MAX_COMMENTS = 1024;
+  const int MAX_PATH_LENGTH = 1024;
+  const int BUFFER_SIZE = 1024;
+ 
+  char file_path_string[MAX_PATH_LENGTH];
+
+  char text_file_buffer[BUFFER_SIZE];
+  char * match_address;
+  char * cptr;
+ 
+  int comment_counter = 0;
+  int chunk_counter = 0;
+  int in_comment = 0;
+ 
+  FILE * fptr;
+
+  struct int_tuple comment_locations[MAX_COMMENTS];
+ 
+  strncpy(file_path_string, argv[1],MAX_PATH_LENGTH);
+
+  /* this is a
+     multi-line comment
+  */
+
+  char comment_start[] = "/*";
+  char comment_end[] = "*/";
+  char quote[] = "\"";
+ 
+  /* this is another
+     multi-line comment
+  */
+
+  printf("input path: %s \n",file_path_string);
+ 
+  fptr = fopen(file_path_string, "r");
+
+  if (fptr == NULL) {
+    return 1;
+  }
+
+
+  while (fgets(text_file_buffer, BUFFER_SIZE,fptr) != NULL) {
+
+    cptr = text_file_buffer;
+    //do {
+    // use something like match_address = strstr(cptr, ...) to check for relevant substrings
+    // update variables and data structures
+    // advance cptr past any matches so you can check the rest of the string
+    //  cptr = match_address + sizeof(char);
+
+    //} while (match_address);
+
+   
+    // You may comment this out or remove this line, but it might be helpful for debugging
+    printf("buffer content for chunk %d : %s \n", chunk_counter, text_file_buffer);
+   
+    chunk_counter += 1;
+
+  }
+
+  for (int i = 0; i < comment_counter; i++) {
+    printf("comment detected: %d %d \n", comment_locations[i].start,  comment_locations[i].end);
+
+  }
+
+  return 0;
+}
